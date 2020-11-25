@@ -19,7 +19,7 @@ namespace DocumentViewerDemo.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -66,6 +66,16 @@ namespace DocumentViewerDemo.Properties {
         internal static System.Drawing.Bitmap ActualSize {
             get {
                 object obj = ResourceManager.GetObject("ActualSize", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Attachment {
+            get {
+                object obj = ResourceManager.GetObject("Attachment", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,6 +213,16 @@ namespace DocumentViewerDemo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NextDocument {
+            get {
+                object obj = ResourceManager.GetObject("NextDocument", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NextPage {
             get {
                 object obj = ResourceManager.GetObject("NextPage", resourceCulture);
@@ -246,6 +266,16 @@ namespace DocumentViewerDemo.Properties {
         internal static System.Drawing.Bitmap PanZoomMode {
             get {
                 object obj = ResourceManager.GetObject("PanZoomMode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PreviousDocument {
+            get {
+                object obj = ResourceManager.GetObject("PreviousDocument", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

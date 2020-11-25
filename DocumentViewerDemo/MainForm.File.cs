@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -22,14 +22,14 @@ namespace DocumentViewerDemo
          // Menu
          _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _saveToolStripMenuItem, HasDocumentEmptyEnabled = false });
          _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _closeToolStripMenuItem });
-         _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _saveToCacheToolStripMenuItem, HasDocumentEmptyEnabled = false });
+         _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _saveToCacheToolStripMenuItem });
          _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _saveCurrentViewToolStripMenuItem, HasDocumentEmptyEnabled = false });
          _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _fileSep3ToolStripMenuItem });
          _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _exportTextToolStripMenuItem });
          _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _propertiesToolStripMenuItem });
          _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _fileSep4ToolStripMenuItem });
          _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _printToolStripMenuItem, HasDocumentEmptyEnabled = false });
-         _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _printSetupToolStripMenuItem });         
+         _commandsBinder.Items.Add(new CommandBinderItem { ToolStripItem = _printSetupToolStripMenuItem });
       }
 
       private void _openDocumentFromFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -41,8 +41,20 @@ namespace DocumentViewerDemo
             dlg.LastPageNumber = _preferences.LastDocumentLastPageNumber;
             dlg.AnnotationsFileName = _preferences.LastAnnotationsFileName;
             dlg.LoadEmbeddedAnnotations = _preferences.LastFileLoadEmbeddedAnnotations;
+            dlg.LoadAttachmentsMode = _preferences.LastLoadAttachmentsMode;
+            dlg.RenderAnnotations = _preferences.LastRenderAnnotations;
             if (dlg.ShowDialog(this) == DialogResult.OK)
-               LoadDocumentFromFile(dlg.DocumentFileName, dlg.FirstPageNumber, dlg.LastPageNumber, dlg.AnnotationsFileName, dlg.LoadEmbeddedAnnotations);
+            {
+               var options = new LoadDocumentOptions();
+               options.FirstPageNumber = dlg.FirstPageNumber;
+               options.LastPageNumber = dlg.LastPageNumber;
+               options.AnnotationsUri = !string.IsNullOrEmpty(dlg.AnnotationsFileName) ? new Uri(dlg.AnnotationsFileName) : null;
+               options.LoadEmbeddedAnnotations = dlg.LoadEmbeddedAnnotations;
+               options.LoadAttachmentsMode = dlg.LoadAttachmentsMode;
+               options.RenderAnnotations = dlg.RenderAnnotations;
+
+               LoadDocumentFromFile(dlg.DocumentFileName, options);
+            }
          }
       }
 
@@ -65,10 +77,10 @@ namespace DocumentViewerDemo
             dlg.LastPageNumber = _preferences.LastDocumentUriLastPageNumber;
 
             dlg.LoadEmbeddedAnnotations = _preferences.LastUriLoadEmbeddedAnnotations;
+            dlg.LoadAttachmentsMode = _preferences.LastLoadAttachmentsMode;
             dlg.ShowDialog(this);
          }
-      }      
-
+      }
 
       private void _saveToolStripMenuItem_Click(object sender, EventArgs e)
       {

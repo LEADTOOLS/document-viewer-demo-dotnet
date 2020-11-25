@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DocumentViewerDemo</RootNamespace>
     <AssemblyName>CSDocumentViewerDemo</AssemblyName>
-    <ApplicationIcon>Resources\DocAddon.ico</ApplicationIcon>
+    <ApplicationIcon>DocAddon.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -23,7 +23,7 @@
     <Optimize>false</Optimize>
     <LeadConfigPath>Bin\Debug\</LeadConfigPath>
     <OutputPath>$(LeadConfigPath)</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LTV20_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;LEADTOOLS_V20_OR_LATER;FOR_NUGET</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LTV21_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;LEADTOOLS_V20_OR_LATER;LEADTOOLS_V21_OR_LATER;FOR_NUGET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -35,7 +35,7 @@
     <Optimize>true</Optimize>
     <LeadConfigPath>Bin\Release\</LeadConfigPath>
     <OutputPath>$(LeadConfigPath)</OutputPath>
-    <DefineConstants>TRACE;LTV20_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;LEADTOOLS_V20_OR_LATER;FOR_NUGET</DefineConstants>
+    <DefineConstants>TRACE;LTV21_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;LEADTOOLS_V20_OR_LATER;LEADTOOLS_V21_OR_LATER;FOR_NUGET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -47,7 +47,7 @@
     <Optimize>false</Optimize>
     <LeadConfigPath>bin\x86\Debug\</LeadConfigPath>
     <OutputPath>$(LeadConfigPath)</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LTV20_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;LEADTOOLS_V20_OR_LATER;FOR_NUGET</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LTV21_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;LEADTOOLS_V20_OR_LATER;LEADTOOLS_V21_OR_LATER;FOR_NUGET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -58,7 +58,7 @@
     <Optimize>true</Optimize>
     <LeadConfigPath>bin\x86\Release\</LeadConfigPath>
     <OutputPath>$(LeadConfigPath)</OutputPath>
-    <DefineConstants>TRACE;LTV20_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;LEADTOOLS_V20_OR_LATER;FOR_NUGET</DefineConstants>
+    <DefineConstants>TRACE;LTV21_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;LEADTOOLS_V20_OR_LATER;LEADTOOLS_V21_OR_LATER;FOR_NUGET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -69,7 +69,7 @@
     <Optimize>false</Optimize>
     <LeadConfigPath>bin\x64\Debug\</LeadConfigPath>
     <OutputPath>$(LeadConfigPath)</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LTV20_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;FOR_WIN64;LEADTOOLS_V20_OR_LATER;FOR_NUGET</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LTV21_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;FOR_WIN64;LEADTOOLS_V20_OR_LATER;LEADTOOLS_V21_OR_LATER;FOR_NUGET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -80,7 +80,7 @@
     <Optimize>true</Optimize>
     <LeadConfigPath>bin\x64\Release\</LeadConfigPath>
     <OutputPath>$(LeadConfigPath)</OutputPath>
-    <DefineConstants>TRACE;LTV20_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;FOR_WIN64;LEADTOOLS_V20_OR_LATER;FOR_NUGET</DefineConstants>
+    <DefineConstants>TRACE;LTV21_CONFIG;LEADTOOLS_V16_OR_LATER;LEADTOOLS_V17_OR_LATER;LEADTOOLS_V175_OR_LATER;FOR_DOTNET4;LEADTOOLS_V18_OR_LATER;LEADTOOLS_V19_OR_LATER;FOR_WIN64;LEADTOOLS_V20_OR_LATER;LEADTOOLS_V21_OR_LATER;FOR_NUGET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -166,11 +166,13 @@
       <DependentUpon>OcrEngineSettingsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UnlockSupport.cs">
-      <Link>UnlockSupport.cs</Link>
     </Compile>
     <Compile Include="WaitCursor.cs">
     </Compile>
     <Compile Include="CommandBinder.cs" />
+    <Compile Include="MainForm.Attachments.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +183,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Interactive.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.History.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Page.cs">
@@ -201,6 +206,12 @@
     <Compile Include="Preferences.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\AttachmentPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AttachmentPropertiesDialog.Designer.cs">
+      <DependentUpon>AttachmentPropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\BusyDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -306,39 +317,30 @@
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="AdvancedPdfDocumentOptionsDialog.resx">
-      <Link>AdvancedPdfDocumentOptionsDialog.resx</Link>
       <DependentUpon>AdvancedPdfDocumentOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DocumentRedactionOptionsDialog.resx">
-      <Link>DocumentRedactionOptionsDialog.resx</Link>
       <DependentUpon>DocumentRedactionOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DocumentConverterDocumentControl.resx">
-      <Link>DocumentConverterDocumentControl.resx</Link>
       <DependentUpon>DocumentConverterDocumentControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DocumentRedactionOptionsControl.resx">
-      <Link>DocumentRedactionOptionsControl.resx</Link>
       <DependentUpon>DocumentRedactionOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DocumentConverterOptionsControl.resx">
-      <Link>DocumentConverterOptionsControl.resx</Link>
       <DependentUpon>DocumentConverterOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DocumentConverterDialog.resx">
-      <Link>DocumentConverterDialog.resx</Link>
       <DependentUpon>DocumentConverterDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DocumentFormatOptionsDialog.resx">
-      <Link>DocumentFormatOptionsDialog.resx</Link>
       <DependentUpon>DocumentFormatOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DocumentFormatSelector.resx">
-      <Link>DocumentFormatSelector.resx</Link>
       <DependentUpon>DocumentFormatSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OcrEngineSettingsControl.resx">
-      <Link>OcrEngineSettingsControl.resx</Link>
       <DependentUpon>OcrEngineSettingsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -354,6 +356,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\AttachmentPropertiesDialog.resx">
+      <DependentUpon>AttachmentPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\BusyDialog.resx">
       <DependentUpon>BusyDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -413,9 +418,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DocAddon.ico" />
     <Content Include="Resources\DocumentViewerDemo\ActualSize.png">
     </Content>
     <Content Include="Resources\DocumentViewerDemo\AutoPanMode.png">
+    </Content>
+    <Content Include="Resources\DocumentViewerDemo\Attachment.png">
     </Content>
     <Content Include="Resources\DocumentViewerDemo\Clockwise.png">
     </Content>
@@ -479,45 +487,51 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Leadtools.Annotations.20.0.0.6\build\net40\Leadtools.Annotations.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Annotations.20.0.0.6\build\net40\Leadtools.Annotations.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Annotations.WinForms.20.0.0.6\build\net40\Leadtools.Annotations.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Annotations.WinForms.20.0.0.6\build\net40\Leadtools.Annotations.WinForms.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.CommonDialogs.WinForms.20.0.0.6\build\net40\Leadtools.CommonDialogs.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.CommonDialogs.WinForms.20.0.0.6\build\net40\Leadtools.CommonDialogs.WinForms.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Document.20.0.0.6\build\net40\Leadtools.Document.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Document.20.0.0.6\build\net40\Leadtools.Document.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Document.Viewer.WinForms.20.0.0.6\build\net40\Leadtools.Document.Viewer.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Document.Viewer.WinForms.20.0.0.6\build\net40\Leadtools.Document.Viewer.WinForms.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Kernel.20.0.0.6\build\net40\Leadtools.Kernel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Kernel.20.0.0.6\build\net40\Leadtools.Kernel.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Ocr.20.0.0.6\build\net40\Leadtools.Ocr.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Ocr.20.0.0.6\build\net40\Leadtools.Ocr.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Viewer.Controls.WinForms.20.0.0.6\build\net40\Leadtools.Viewer.Controls.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Viewer.Controls.WinForms.20.0.0.6\build\net40\Leadtools.Viewer.Controls.WinForms.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Formats.Document.20.0.0.6\build\net40\Leadtools.Formats.Document.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Document.20.0.0.6\build\net40\Leadtools.Formats.Document.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Formats.Raster.Additional.20.0.0.6\build\net40\Leadtools.Formats.Raster.Additional.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Raster.Additional.20.0.0.6\build\net40\Leadtools.Formats.Raster.Additional.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Formats.Raster.Camera.20.0.0.6\build\net40\Leadtools.Formats.Raster.Camera.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Raster.Camera.20.0.0.6\build\net40\Leadtools.Formats.Raster.Camera.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Formats.Raster.Common.20.0.0.6\build\net40\Leadtools.Formats.Raster.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Raster.Common.20.0.0.6\build\net40\Leadtools.Formats.Raster.Common.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Formats.Vector.20.0.0.6\build\net40\Leadtools.Formats.Vector.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Vector.20.0.0.6\build\net40\Leadtools.Formats.Vector.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Jpeg2000.20.0.0.6\build\net40\Leadtools.Jpeg2000.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Jpeg2000.20.0.0.6\build\net40\Leadtools.Jpeg2000.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Image.Processing.20.0.0.6\build\net40\Leadtools.Image.Processing.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Image.Processing.20.0.0.6\build\net40\Leadtools.Image.Processing.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Pdf.20.0.0.6\build\net40\Leadtools.Pdf.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Pdf.20.0.0.6\build\net40\Leadtools.Pdf.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Ocr.Languages.Main.NET.20.0.0.6\build\net40\Leadtools.Ocr.Languages.Main.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Ocr.Languages.Main.NET.20.0.0.6\build\net40\Leadtools.Ocr.Languages.Main.NET.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Barcode.20.0.0.6\build\net40\Leadtools.Barcode.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Barcode.20.0.0.6\build\net40\Leadtools.Barcode.targets'))" />
-    <Error Condition="!Exists('packages\Leadtools.Forms.20.0.0.6\build\net40\Leadtools.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Forms.20.0.0.6\build\net40\Leadtools.Forms.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Annotations.21.0.0.2\build\net40\Leadtools.Annotations.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Annotations.21.0.0.2\build\net40\Leadtools.Annotations.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Annotations.WinForms.21.0.0.2\build\net40\Leadtools.Annotations.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Annotations.WinForms.21.0.0.2\build\net40\Leadtools.Annotations.WinForms.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.CommonDialogs.WinForms.21.0.0.2\build\net40\Leadtools.CommonDialogs.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.CommonDialogs.WinForms.21.0.0.2\build\net40\Leadtools.CommonDialogs.WinForms.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Document.21.0.0.2\build\net40\Leadtools.Document.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Document.21.0.0.2\build\net40\Leadtools.Document.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Document.Viewer.WinForms.21.0.0.2\build\net40\Leadtools.Document.Viewer.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Document.Viewer.WinForms.21.0.0.2\build\net40\Leadtools.Document.Viewer.WinForms.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Kernel.21.0.0.2\build\net40\Leadtools.Kernel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Kernel.21.0.0.2\build\net40\Leadtools.Kernel.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Ocr.21.0.0.2\build\net40\Leadtools.Ocr.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Ocr.21.0.0.2\build\net40\Leadtools.Ocr.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Viewer.Controls.WinForms.21.0.0.2\build\net40\Leadtools.Viewer.Controls.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Viewer.Controls.WinForms.21.0.0.2\build\net40\Leadtools.Viewer.Controls.WinForms.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Dicom.21.0.0.2\build\net40\Leadtools.Dicom.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Dicom.21.0.0.2\build\net40\Leadtools.Dicom.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Formats.Document.21.0.0.2\build\net40\Leadtools.Formats.Document.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Document.21.0.0.2\build\net40\Leadtools.Formats.Document.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Formats.Raster.Additional.21.0.0.2\build\net40\Leadtools.Formats.Raster.Additional.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Raster.Additional.21.0.0.2\build\net40\Leadtools.Formats.Raster.Additional.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Formats.Raster.Camera.21.0.0.2\build\net40\Leadtools.Formats.Raster.Camera.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Raster.Camera.21.0.0.2\build\net40\Leadtools.Formats.Raster.Camera.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Formats.Raster.Common.21.0.0.2\build\net40\Leadtools.Formats.Raster.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Raster.Common.21.0.0.2\build\net40\Leadtools.Formats.Raster.Common.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Formats.Vector.21.0.0.2\build\net40\Leadtools.Formats.Vector.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Formats.Vector.21.0.0.2\build\net40\Leadtools.Formats.Vector.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Jpeg2000.21.0.0.2\build\net40\Leadtools.Jpeg2000.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Jpeg2000.21.0.0.2\build\net40\Leadtools.Jpeg2000.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Mrc.21.0.0.2\build\net40\Leadtools.Mrc.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Mrc.21.0.0.2\build\net40\Leadtools.Mrc.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Image.Processing.21.0.0.2\build\net40\Leadtools.Image.Processing.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Image.Processing.21.0.0.2\build\net40\Leadtools.Image.Processing.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Pdf.21.0.0.2\build\net40\Leadtools.Pdf.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Pdf.21.0.0.2\build\net40\Leadtools.Pdf.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Ocr.Languages.Main.NET.21.0.0.2\build\net40\Leadtools.Ocr.Languages.Main.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Ocr.Languages.Main.NET.21.0.0.2\build\net40\Leadtools.Ocr.Languages.Main.NET.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Barcode.21.0.0.2\build\net40\Leadtools.Barcode.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Barcode.21.0.0.2\build\net40\Leadtools.Barcode.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Forms.21.0.0.2\build\net40\Leadtools.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Forms.21.0.0.2\build\net40\Leadtools.Forms.targets'))" />
+    <Error Condition="!Exists('packages\Leadtools.Document.Analytics.21.0.0.2\build\net40\Leadtools.Document.Analytics.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Leadtools.Document.Analytics.21.0.0.2\build\net40\Leadtools.Document.Analytics.targets'))" />
   </Target>
-  <Import Project="packages\Leadtools.Forms.20.0.0.6\build\net40\Leadtools.Forms.targets" Condition="Exists('packages\Leadtools.Forms.20.0.0.6\build\net40\Leadtools.Forms.targets')" />
-  <Import Project="packages\Leadtools.Barcode.20.0.0.6\build\net40\Leadtools.Barcode.targets" Condition="Exists('packages\Leadtools.Barcode.20.0.0.6\build\net40\Leadtools.Barcode.targets')" />
-  <Import Project="packages\Leadtools.Ocr.Languages.Main.NET.20.0.0.6\build\net40\Leadtools.Ocr.Languages.Main.NET.targets" Condition="Exists('packages\Leadtools.Ocr.Languages.Main.NET.20.0.0.6\build\net40\Leadtools.Ocr.Languages.Main.NET.targets')" />
-  <Import Project="packages\Leadtools.Pdf.20.0.0.6\build\net40\Leadtools.Pdf.targets" Condition="Exists('packages\Leadtools.Pdf.20.0.0.6\build\net40\Leadtools.Pdf.targets')" />
-  <Import Project="packages\Leadtools.Image.Processing.20.0.0.6\build\net40\Leadtools.Image.Processing.targets" Condition="Exists('packages\Leadtools.Image.Processing.20.0.0.6\build\net40\Leadtools.Image.Processing.targets')" />
-  <Import Project="packages\Leadtools.Jpeg2000.20.0.0.6\build\net40\Leadtools.Jpeg2000.targets" Condition="Exists('packages\Leadtools.Jpeg2000.20.0.0.6\build\net40\Leadtools.Jpeg2000.targets')" />
-  <Import Project="packages\Leadtools.Formats.Vector.20.0.0.6\build\net40\Leadtools.Formats.Vector.targets" Condition="Exists('packages\Leadtools.Formats.Vector.20.0.0.6\build\net40\Leadtools.Formats.Vector.targets')" />
-  <Import Project="packages\Leadtools.Formats.Raster.Common.20.0.0.6\build\net40\Leadtools.Formats.Raster.Common.targets" Condition="Exists('packages\Leadtools.Formats.Raster.Common.20.0.0.6\build\net40\Leadtools.Formats.Raster.Common.targets')" />
-  <Import Project="packages\Leadtools.Formats.Raster.Camera.20.0.0.6\build\net40\Leadtools.Formats.Raster.Camera.targets" Condition="Exists('packages\Leadtools.Formats.Raster.Camera.20.0.0.6\build\net40\Leadtools.Formats.Raster.Camera.targets')" />
-  <Import Project="packages\Leadtools.Formats.Raster.Additional.20.0.0.6\build\net40\Leadtools.Formats.Raster.Additional.targets" Condition="Exists('packages\Leadtools.Formats.Raster.Additional.20.0.0.6\build\net40\Leadtools.Formats.Raster.Additional.targets')" />
-  <Import Project="packages\Leadtools.Formats.Document.20.0.0.6\build\net40\Leadtools.Formats.Document.targets" Condition="Exists('packages\Leadtools.Formats.Document.20.0.0.6\build\net40\Leadtools.Formats.Document.targets')" />
-  <Import Project="packages\Leadtools.Viewer.Controls.WinForms.20.0.0.6\build\net40\Leadtools.Viewer.Controls.WinForms.targets" Condition="Exists('packages\Leadtools.Viewer.Controls.WinForms.20.0.0.6\build\net40\Leadtools.Viewer.Controls.WinForms.targets')" />
-  <Import Project="packages\Leadtools.Ocr.20.0.0.6\build\net40\Leadtools.Ocr.targets" Condition="Exists('packages\Leadtools.Ocr.20.0.0.6\build\net40\Leadtools.Ocr.targets')" />
-  <Import Project="packages\Leadtools.Kernel.20.0.0.6\build\net40\Leadtools.Kernel.targets" Condition="Exists('packages\Leadtools.Kernel.20.0.0.6\build\net40\Leadtools.Kernel.targets')" />
-  <Import Project="packages\Leadtools.Document.Viewer.WinForms.20.0.0.6\build\net40\Leadtools.Document.Viewer.WinForms.targets" Condition="Exists('packages\Leadtools.Document.Viewer.WinForms.20.0.0.6\build\net40\Leadtools.Document.Viewer.WinForms.targets')" />
-  <Import Project="packages\Leadtools.Document.20.0.0.6\build\net40\Leadtools.Document.targets" Condition="Exists('packages\Leadtools.Document.20.0.0.6\build\net40\Leadtools.Document.targets')" />
-  <Import Project="packages\Leadtools.CommonDialogs.WinForms.20.0.0.6\build\net40\Leadtools.CommonDialogs.WinForms.targets" Condition="Exists('packages\Leadtools.CommonDialogs.WinForms.20.0.0.6\build\net40\Leadtools.CommonDialogs.WinForms.targets')" />
-  <Import Project="packages\Leadtools.Annotations.WinForms.20.0.0.6\build\net40\Leadtools.Annotations.WinForms.targets" Condition="Exists('packages\Leadtools.Annotations.WinForms.20.0.0.6\build\net40\Leadtools.Annotations.WinForms.targets')" />
-  <Import Project="packages\Leadtools.Annotations.20.0.0.6\build\net40\Leadtools.Annotations.targets" Condition="Exists('packages\Leadtools.Annotations.20.0.0.6\build\net40\Leadtools.Annotations.targets')" />
+  <Import Project="packages\Leadtools.Document.Analytics.21.0.0.2\build\net40\Leadtools.Document.Analytics.targets" Condition="Exists('packages\Leadtools.Document.Analytics.21.0.0.2\build\net40\Leadtools.Document.Analytics.targets')" />
+  <Import Project="packages\Leadtools.Forms.21.0.0.2\build\net40\Leadtools.Forms.targets" Condition="Exists('packages\Leadtools.Forms.21.0.0.2\build\net40\Leadtools.Forms.targets')" />
+  <Import Project="packages\Leadtools.Barcode.21.0.0.2\build\net40\Leadtools.Barcode.targets" Condition="Exists('packages\Leadtools.Barcode.21.0.0.2\build\net40\Leadtools.Barcode.targets')" />
+  <Import Project="packages\Leadtools.Ocr.Languages.Main.NET.21.0.0.2\build\net40\Leadtools.Ocr.Languages.Main.NET.targets" Condition="Exists('packages\Leadtools.Ocr.Languages.Main.NET.21.0.0.2\build\net40\Leadtools.Ocr.Languages.Main.NET.targets')" />
+  <Import Project="packages\Leadtools.Pdf.21.0.0.2\build\net40\Leadtools.Pdf.targets" Condition="Exists('packages\Leadtools.Pdf.21.0.0.2\build\net40\Leadtools.Pdf.targets')" />
+  <Import Project="packages\Leadtools.Image.Processing.21.0.0.2\build\net40\Leadtools.Image.Processing.targets" Condition="Exists('packages\Leadtools.Image.Processing.21.0.0.2\build\net40\Leadtools.Image.Processing.targets')" />
+  <Import Project="packages\Leadtools.Mrc.21.0.0.2\build\net40\Leadtools.Mrc.targets" Condition="Exists('packages\Leadtools.Mrc.21.0.0.2\build\net40\Leadtools.Mrc.targets')" />
+  <Import Project="packages\Leadtools.Jpeg2000.21.0.0.2\build\net40\Leadtools.Jpeg2000.targets" Condition="Exists('packages\Leadtools.Jpeg2000.21.0.0.2\build\net40\Leadtools.Jpeg2000.targets')" />
+  <Import Project="packages\Leadtools.Formats.Vector.21.0.0.2\build\net40\Leadtools.Formats.Vector.targets" Condition="Exists('packages\Leadtools.Formats.Vector.21.0.0.2\build\net40\Leadtools.Formats.Vector.targets')" />
+  <Import Project="packages\Leadtools.Formats.Raster.Common.21.0.0.2\build\net40\Leadtools.Formats.Raster.Common.targets" Condition="Exists('packages\Leadtools.Formats.Raster.Common.21.0.0.2\build\net40\Leadtools.Formats.Raster.Common.targets')" />
+  <Import Project="packages\Leadtools.Formats.Raster.Camera.21.0.0.2\build\net40\Leadtools.Formats.Raster.Camera.targets" Condition="Exists('packages\Leadtools.Formats.Raster.Camera.21.0.0.2\build\net40\Leadtools.Formats.Raster.Camera.targets')" />
+  <Import Project="packages\Leadtools.Formats.Raster.Additional.21.0.0.2\build\net40\Leadtools.Formats.Raster.Additional.targets" Condition="Exists('packages\Leadtools.Formats.Raster.Additional.21.0.0.2\build\net40\Leadtools.Formats.Raster.Additional.targets')" />
+  <Import Project="packages\Leadtools.Formats.Document.21.0.0.2\build\net40\Leadtools.Formats.Document.targets" Condition="Exists('packages\Leadtools.Formats.Document.21.0.0.2\build\net40\Leadtools.Formats.Document.targets')" />
+  <Import Project="packages\Leadtools.Dicom.21.0.0.2\build\net40\Leadtools.Dicom.targets" Condition="Exists('packages\Leadtools.Dicom.21.0.0.2\build\net40\Leadtools.Dicom.targets')" />
+  <Import Project="packages\Leadtools.Viewer.Controls.WinForms.21.0.0.2\build\net40\Leadtools.Viewer.Controls.WinForms.targets" Condition="Exists('packages\Leadtools.Viewer.Controls.WinForms.21.0.0.2\build\net40\Leadtools.Viewer.Controls.WinForms.targets')" />
+  <Import Project="packages\Leadtools.Ocr.21.0.0.2\build\net40\Leadtools.Ocr.targets" Condition="Exists('packages\Leadtools.Ocr.21.0.0.2\build\net40\Leadtools.Ocr.targets')" />
+  <Import Project="packages\Leadtools.Kernel.21.0.0.2\build\net40\Leadtools.Kernel.targets" Condition="Exists('packages\Leadtools.Kernel.21.0.0.2\build\net40\Leadtools.Kernel.targets')" />
+  <Import Project="packages\Leadtools.Document.Viewer.WinForms.21.0.0.2\build\net40\Leadtools.Document.Viewer.WinForms.targets" Condition="Exists('packages\Leadtools.Document.Viewer.WinForms.21.0.0.2\build\net40\Leadtools.Document.Viewer.WinForms.targets')" />
+  <Import Project="packages\Leadtools.Document.21.0.0.2\build\net40\Leadtools.Document.targets" Condition="Exists('packages\Leadtools.Document.21.0.0.2\build\net40\Leadtools.Document.targets')" />
+  <Import Project="packages\Leadtools.CommonDialogs.WinForms.21.0.0.2\build\net40\Leadtools.CommonDialogs.WinForms.targets" Condition="Exists('packages\Leadtools.CommonDialogs.WinForms.21.0.0.2\build\net40\Leadtools.CommonDialogs.WinForms.targets')" />
+  <Import Project="packages\Leadtools.Annotations.WinForms.21.0.0.2\build\net40\Leadtools.Annotations.WinForms.targets" Condition="Exists('packages\Leadtools.Annotations.WinForms.21.0.0.2\build\net40\Leadtools.Annotations.WinForms.targets')" />
+  <Import Project="packages\Leadtools.Annotations.21.0.0.2\build\net40\Leadtools.Annotations.targets" Condition="Exists('packages\Leadtools.Annotations.21.0.0.2\build\net40\Leadtools.Annotations.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

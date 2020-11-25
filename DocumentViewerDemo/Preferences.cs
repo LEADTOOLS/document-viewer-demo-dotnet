@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Leadtools.Caching;
+using Leadtools.Document;
 using Leadtools.Document.Viewer;
 
 namespace DocumentViewerDemo
@@ -25,6 +26,8 @@ namespace DocumentViewerDemo
       public string LastDocumentFileName;
       public string LastAnnotationsFileName;
       public bool LastFileLoadEmbeddedAnnotations;
+      public DocumentLoadAttachmentsMode LastLoadAttachmentsMode;
+      public bool LastRenderAnnotations;
       public int LastDocumentFirstPageNumber;
       public int LastDocumentLastPageNumber;
       // Last successful document URL we opened, so we-try to re-open in the demo
@@ -57,6 +60,7 @@ namespace DocumentViewerDemo
             result.ShowTextIndicators = true;
             result.EnableTooltips = true;
             result.EnableInertiaScroll = true;
+            result.LastLoadAttachmentsMode = DocumentLoadAttachmentsMode.AsAttachments;
             return result;
          }
       }

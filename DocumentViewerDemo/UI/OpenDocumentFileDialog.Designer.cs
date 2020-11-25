@@ -31,10 +31,16 @@
          this._okButton = new System.Windows.Forms.Button();
          this._cancelButton = new System.Windows.Forms.Button();
          this._documentLocationGroupBox = new System.Windows.Forms.GroupBox();
+         this._attachmentsModeComboBox = new System.Windows.Forms.ComboBox();
+         this._attachmentsModeLabel = new System.Windows.Forms.Label();
+         this._pagesLabel = new System.Windows.Forms.Label();
+         this._pagesButton = new System.Windows.Forms.Button();
          this._documentLocationLabel = new System.Windows.Forms.Label();
          this._documentLocationBrowseButton = new System.Windows.Forms.Button();
          this._documentLocationTextBox = new System.Windows.Forms.TextBox();
          this._annotationsGroupBox = new System.Windows.Forms.GroupBox();
+         this._renderAnnotationsRadioLabel = new System.Windows.Forms.Label();
+         this._renderAnnotationsRadioButton = new System.Windows.Forms.RadioButton();
          this._externalAnnotationsLabel = new System.Windows.Forms.Label();
          this._embeddedAnnotationsLabel = new System.Windows.Forms.Label();
          this._noAnnotationsLabel = new System.Windows.Forms.Label();
@@ -44,8 +50,6 @@
          this._noAnnotationsRadioButton = new System.Windows.Forms.RadioButton();
          this._annotationsLocationBrowseButton = new System.Windows.Forms.Button();
          this._annotationsLocationTextBox = new System.Windows.Forms.TextBox();
-         this._pagesButton = new System.Windows.Forms.Button();
-         this._pagesLabel = new System.Windows.Forms.Label();
          this._documentLocationGroupBox.SuspendLayout();
          this._annotationsGroupBox.SuspendLayout();
          this.SuspendLayout();
@@ -53,7 +57,7 @@
          // _okButton
          // 
          this._okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-         this._okButton.Location = new System.Drawing.Point(564, 655);
+         this._okButton.Location = new System.Drawing.Point(568, 751);
          this._okButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
          this._okButton.Name = "_okButton";
          this._okButton.Size = new System.Drawing.Size(112, 35);
@@ -65,7 +69,7 @@
          // _cancelButton
          // 
          this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-         this._cancelButton.Location = new System.Drawing.Point(686, 655);
+         this._cancelButton.Location = new System.Drawing.Point(686, 751);
          this._cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
          this._cancelButton.Name = "_cancelButton";
          this._cancelButton.Size = new System.Drawing.Size(112, 35);
@@ -75,6 +79,8 @@
          // 
          // _documentLocationGroupBox
          // 
+         this._documentLocationGroupBox.Controls.Add(this._attachmentsModeComboBox);
+         this._documentLocationGroupBox.Controls.Add(this._attachmentsModeLabel);
          this._documentLocationGroupBox.Controls.Add(this._pagesLabel);
          this._documentLocationGroupBox.Controls.Add(this._pagesButton);
          this._documentLocationGroupBox.Controls.Add(this._documentLocationLabel);
@@ -88,6 +94,42 @@
          this._documentLocationGroupBox.TabIndex = 0;
          this._documentLocationGroupBox.TabStop = false;
          this._documentLocationGroupBox.Text = "Document &file name:";
+         // 
+         // _attachmentsModeComboBox
+         // 
+         this._attachmentsModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this._attachmentsModeComboBox.FormattingEnabled = true;
+         this._attachmentsModeComboBox.Location = new System.Drawing.Point(553, 123);
+         this._attachmentsModeComboBox.Name = "_attachmentsModeComboBox";
+         this._attachmentsModeComboBox.Size = new System.Drawing.Size(220, 28);
+         this._attachmentsModeComboBox.TabIndex = 6;
+         // 
+         // _attachmentsModeLabel
+         // 
+         this._attachmentsModeLabel.AutoSize = true;
+         this._attachmentsModeLabel.Location = new System.Drawing.Point(389, 126);
+         this._attachmentsModeLabel.Name = "_attachmentsModeLabel";
+         this._attachmentsModeLabel.Size = new System.Drawing.Size(142, 20);
+         this._attachmentsModeLabel.TabIndex = 5;
+         this._attachmentsModeLabel.Text = "Load a&ttachments:";
+         // 
+         // _pagesLabel
+         // 
+         this._pagesLabel.AutoSize = true;
+         this._pagesLabel.Location = new System.Drawing.Point(140, 123);
+         this._pagesLabel.Name = "_pagesLabel";
+         this._pagesLabel.Size = new System.Drawing.Size(0, 20);
+         this._pagesLabel.TabIndex = 4;
+         // 
+         // _pagesButton
+         // 
+         this._pagesButton.Location = new System.Drawing.Point(13, 116);
+         this._pagesButton.Name = "_pagesButton";
+         this._pagesButton.Size = new System.Drawing.Size(112, 35);
+         this._pagesButton.TabIndex = 3;
+         this._pagesButton.Text = "&Pages...";
+         this._pagesButton.UseVisualStyleBackColor = true;
+         this._pagesButton.Click += new System.EventHandler(this._pagesButton_Click);
          // 
          // _documentLocationLabel
          // 
@@ -121,6 +163,8 @@
          // 
          // _annotationsGroupBox
          // 
+         this._annotationsGroupBox.Controls.Add(this._renderAnnotationsRadioLabel);
+         this._annotationsGroupBox.Controls.Add(this._renderAnnotationsRadioButton);
          this._annotationsGroupBox.Controls.Add(this._externalAnnotationsLabel);
          this._annotationsGroupBox.Controls.Add(this._embeddedAnnotationsLabel);
          this._annotationsGroupBox.Controls.Add(this._noAnnotationsLabel);
@@ -134,29 +178,52 @@
          this._annotationsGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
          this._annotationsGroupBox.Name = "_annotationsGroupBox";
          this._annotationsGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-         this._annotationsGroupBox.Size = new System.Drawing.Size(780, 442);
+         this._annotationsGroupBox.Size = new System.Drawing.Size(780, 544);
          this._annotationsGroupBox.TabIndex = 1;
          this._annotationsGroupBox.TabStop = false;
          this._annotationsGroupBox.Text = "&Annotations";
          // 
+         // _renderAnnotationsRadioLabel
+         // 
+         this._renderAnnotationsRadioLabel.Location = new System.Drawing.Point(58, 187);
+         this._renderAnnotationsRadioLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+         this._renderAnnotationsRadioLabel.Name = "_renderAnnotationsRadioLabel";
+         this._renderAnnotationsRadioLabel.Size = new System.Drawing.Size(690, 77);
+         this._renderAnnotationsRadioLabel.TabIndex = 3;
+         this._renderAnnotationsRadioLabel.Text = "Render the annotations on each page. This is currently valid only for PDF embedde" +
+    "d annotations.";
+         // 
+         // _renderAnnotationsRadioButton
+         // 
+         this._renderAnnotationsRadioButton.AutoSize = true;
+         this._renderAnnotationsRadioButton.Location = new System.Drawing.Point(34, 157);
+         this._renderAnnotationsRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+         this._renderAnnotationsRadioButton.Name = "_renderAnnotationsRadioButton";
+         this._renderAnnotationsRadioButton.Size = new System.Drawing.Size(175, 24);
+         this._renderAnnotationsRadioButton.TabIndex = 2;
+         this._renderAnnotationsRadioButton.TabStop = true;
+         this._renderAnnotationsRadioButton.Text = "&Render annotations";
+         this._renderAnnotationsRadioButton.UseVisualStyleBackColor = true;
+         this._renderAnnotationsRadioButton.CheckedChanged += new System.EventHandler(this._annotationsRadioButton_CheckedChanged);
+         // 
          // _externalAnnotationsLabel
          // 
-         this._externalAnnotationsLabel.Location = new System.Drawing.Point(58, 309);
+         this._externalAnnotationsLabel.Location = new System.Drawing.Point(58, 411);
          this._externalAnnotationsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
          this._externalAnnotationsLabel.Name = "_externalAnnotationsLabel";
          this._externalAnnotationsLabel.Size = new System.Drawing.Size(690, 77);
-         this._externalAnnotationsLabel.TabIndex = 5;
+         this._externalAnnotationsLabel.TabIndex = 7;
          this._externalAnnotationsLabel.Text = "Select this option if the annotations are stored in an external location, such as" +
     " LEADTOOLS annotations store in an XML file (for example: C:\\Documents\\File.xml)" +
     ".";
          // 
          // _embeddedAnnotationsLabel
          // 
-         this._embeddedAnnotationsLabel.Location = new System.Drawing.Point(58, 197);
+         this._embeddedAnnotationsLabel.Location = new System.Drawing.Point(58, 299);
          this._embeddedAnnotationsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
          this._embeddedAnnotationsLabel.Name = "_embeddedAnnotationsLabel";
          this._embeddedAnnotationsLabel.Size = new System.Drawing.Size(690, 77);
-         this._embeddedAnnotationsLabel.TabIndex = 3;
+         this._embeddedAnnotationsLabel.TabIndex = 5;
          this._embeddedAnnotationsLabel.Text = "Some document formats such as PDF and TIFF can have embedded annotations inside t" +
     "he file itself. Select this option to try to load these annotations if they exis" +
     "t.";
@@ -173,21 +240,21 @@
          // _externalAnnotationsLocationLabel
          // 
          this._externalAnnotationsLocationLabel.AutoSize = true;
-         this._externalAnnotationsLocationLabel.Location = new System.Drawing.Point(75, 405);
+         this._externalAnnotationsLocationLabel.Location = new System.Drawing.Point(75, 498);
          this._externalAnnotationsLocationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
          this._externalAnnotationsLocationLabel.Name = "_externalAnnotationsLocationLabel";
          this._externalAnnotationsLocationLabel.Size = new System.Drawing.Size(82, 20);
-         this._externalAnnotationsLocationLabel.TabIndex = 6;
+         this._externalAnnotationsLocationLabel.TabIndex = 8;
          this._externalAnnotationsLocationLabel.Text = "File &name:";
          // 
          // _externalAnnotationsRadioButton
          // 
          this._externalAnnotationsRadioButton.AutoSize = true;
-         this._externalAnnotationsRadioButton.Location = new System.Drawing.Point(34, 278);
+         this._externalAnnotationsRadioButton.Location = new System.Drawing.Point(34, 381);
          this._externalAnnotationsRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
          this._externalAnnotationsRadioButton.Name = "_externalAnnotationsRadioButton";
          this._externalAnnotationsRadioButton.Size = new System.Drawing.Size(362, 24);
-         this._externalAnnotationsRadioButton.TabIndex = 4;
+         this._externalAnnotationsRadioButton.TabIndex = 6;
          this._externalAnnotationsRadioButton.TabStop = true;
          this._externalAnnotationsRadioButton.Text = "&Load the annotations from an external location";
          this._externalAnnotationsRadioButton.UseVisualStyleBackColor = true;
@@ -196,11 +263,11 @@
          // _embeddedAnnotationsRadioButton
          // 
          this._embeddedAnnotationsRadioButton.AutoSize = true;
-         this._embeddedAnnotationsRadioButton.Location = new System.Drawing.Point(34, 166);
+         this._embeddedAnnotationsRadioButton.Location = new System.Drawing.Point(34, 269);
          this._embeddedAnnotationsRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
          this._embeddedAnnotationsRadioButton.Name = "_embeddedAnnotationsRadioButton";
          this._embeddedAnnotationsRadioButton.Size = new System.Drawing.Size(383, 24);
-         this._embeddedAnnotationsRadioButton.TabIndex = 2;
+         this._embeddedAnnotationsRadioButton.TabIndex = 4;
          this._embeddedAnnotationsRadioButton.TabStop = true;
          this._embeddedAnnotationsRadioButton.Text = "Load the annotations &embedded in the document";
          this._embeddedAnnotationsRadioButton.UseVisualStyleBackColor = true;
@@ -221,41 +288,23 @@
          // 
          // _annotationsLocationBrowseButton
          // 
-         this._annotationsLocationBrowseButton.Location = new System.Drawing.Point(724, 397);
+         this._annotationsLocationBrowseButton.Location = new System.Drawing.Point(724, 490);
          this._annotationsLocationBrowseButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
          this._annotationsLocationBrowseButton.Name = "_annotationsLocationBrowseButton";
          this._annotationsLocationBrowseButton.Size = new System.Drawing.Size(46, 35);
-         this._annotationsLocationBrowseButton.TabIndex = 8;
+         this._annotationsLocationBrowseButton.TabIndex = 10;
          this._annotationsLocationBrowseButton.Text = "...";
          this._annotationsLocationBrowseButton.UseVisualStyleBackColor = true;
          this._annotationsLocationBrowseButton.Click += new System.EventHandler(this._annotationsLocationBrowseButton_Click);
          // 
          // _annotationsLocationTextBox
          // 
-         this._annotationsLocationTextBox.Location = new System.Drawing.Point(166, 400);
+         this._annotationsLocationTextBox.Location = new System.Drawing.Point(166, 493);
          this._annotationsLocationTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
          this._annotationsLocationTextBox.Name = "_annotationsLocationTextBox";
          this._annotationsLocationTextBox.Size = new System.Drawing.Size(547, 26);
-         this._annotationsLocationTextBox.TabIndex = 7;
+         this._annotationsLocationTextBox.TabIndex = 9;
          this._annotationsLocationTextBox.TextChanged += new System.EventHandler(this._locationTextBox_TextChanged);
-         // 
-         // _pagesButton
-         // 
-         this._pagesButton.Location = new System.Drawing.Point(13, 116);
-         this._pagesButton.Name = "_pagesButton";
-         this._pagesButton.Size = new System.Drawing.Size(112, 35);
-         this._pagesButton.TabIndex = 3;
-         this._pagesButton.Text = "&Pages...";
-         this._pagesButton.UseVisualStyleBackColor = true;
-         this._pagesButton.Click += new System.EventHandler(this._pagesButton_Click);
-         // 
-         // _pagesLabel
-         // 
-         this._pagesLabel.AutoSize = true;
-         this._pagesLabel.Location = new System.Drawing.Point(140, 123);
-         this._pagesLabel.Name = "_pagesLabel";
-         this._pagesLabel.Size = new System.Drawing.Size(0, 20);
-         this._pagesLabel.TabIndex = 4;
          // 
          // OpenDocumentFileDialog
          // 
@@ -263,7 +312,7 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.CancelButton = this._cancelButton;
-         this.ClientSize = new System.Drawing.Size(819, 708);
+         this.ClientSize = new System.Drawing.Size(819, 802);
          this.Controls.Add(this._annotationsGroupBox);
          this.Controls.Add(this._documentLocationGroupBox);
          this.Controls.Add(this._cancelButton);
@@ -304,5 +353,9 @@
       private System.Windows.Forms.Label _embeddedAnnotationsLabel;
       private System.Windows.Forms.Label _pagesLabel;
       private System.Windows.Forms.Button _pagesButton;
+      private System.Windows.Forms.Label _renderAnnotationsRadioLabel;
+      private System.Windows.Forms.RadioButton _renderAnnotationsRadioButton;
+      private System.Windows.Forms.ComboBox _attachmentsModeComboBox;
+      private System.Windows.Forms.Label _attachmentsModeLabel;
    }
 }

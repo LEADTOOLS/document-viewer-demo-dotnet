@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -20,8 +20,10 @@ namespace DocumentViewerDemo.UI
       public string DocumentFileName { get; set; }
       public string AnnotationsFileName { get; set; }
       public bool LoadEmbeddedAnnotations { get; set; }
+      public bool RenderAnnotations { get; set; }
       public int FirstPageNumber { get; set; }
       public int LastPageNumber { get; set; }
+      public DocumentLoadAttachmentsMode LoadAttachmentsMode { get; set; }
 
       private int _firstPageNumber;
       private int _lastPageNumber;
@@ -40,6 +42,8 @@ namespace DocumentViewerDemo.UI
 
             if (this.AnnotationsFileName != null)
                _externalAnnotationsRadioButton.Checked = true;
+            else if (this.RenderAnnotations)
+               _renderAnnotationsRadioButton.Checked = true;
             else if (this.LoadEmbeddedAnnotations)
                _embeddedAnnotationsRadioButton.Checked = true;
             else
@@ -51,6 +55,10 @@ namespace DocumentViewerDemo.UI
                _firstPageNumber = 1;
             if (_lastPageNumber == 0)
                _lastPageNumber = -1;
+
+            _attachmentsModeComboBox.Items.Add("None");
+            _attachmentsModeComboBox.Items.Add("As attachments");
+            _attachmentsModeComboBox.SelectedIndex = (int)this.LoadAttachmentsMode;
 
             UpdateUIState();
          }
@@ -170,21 +178,31 @@ namespace DocumentViewerDemo.UI
          this.DocumentFileName = _documentLocationTextBox.Text.Trim();
          this.FirstPageNumber = _firstPageNumber;
          this.LastPageNumber = _lastPageNumber;
+         this.LoadAttachmentsMode = (DocumentLoadAttachmentsMode)_attachmentsModeComboBox.SelectedIndex;
 
          if (_noAnnotationsRadioButton.Checked)
          {
             this.AnnotationsFileName = null;
             this.LoadEmbeddedAnnotations = false;
+            this.RenderAnnotations = false;
+         }
+         else if (_renderAnnotationsRadioButton.Checked)
+         {
+            this.AnnotationsFileName = null;
+            this.LoadEmbeddedAnnotations = true;
+            this.RenderAnnotations = true;
          }
          else if (_embeddedAnnotationsRadioButton.Checked)
          {
             this.AnnotationsFileName = null;
             this.LoadEmbeddedAnnotations = true;
+            this.RenderAnnotations = false;
          }
          else
          {
             this.AnnotationsFileName = _annotationsLocationTextBox.Text.Trim();
             this.LoadEmbeddedAnnotations = false;
+            this.RenderAnnotations = false;
          }
       }
    }

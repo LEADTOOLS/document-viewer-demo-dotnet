@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -108,11 +108,13 @@ namespace DocumentViewerDemo
          {
             dlg.LoadDocumentTimeoutMilliseconds = _loadDocumentTimeoutMilliseconds;
             dlg.MaximumImagesPixelSize = _maximumImagePixelSize;
+            dlg.UseSvgBackImage = _useSvgBackImage;
             dlg.DocumentViewer = _documentViewer;
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
                _loadDocumentTimeoutMilliseconds = dlg.LoadDocumentTimeoutMilliseconds;
                _maximumImagePixelSize = dlg.MaximumImagesPixelSize;
+               _useSvgBackImage = dlg.UseSvgBackImage;
             }
          }
       }

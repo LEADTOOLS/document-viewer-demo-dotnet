@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -136,7 +136,10 @@ namespace DocumentViewerDemo
       // Control to use when the a text object is being edited
       private AutomationTextBox _automationTextBox;
 
-      // The annotations object lisy
+      // Controls if we can remove _automationTextBox
+      private bool _canRemoveAutomationTextBox = true;
+
+      // The annotations object list
       private AutomationObjectsListControl _automationObjectsList;
 
       // So we can switch the renderers when doing custom rendering more
@@ -602,12 +605,14 @@ namespace DocumentViewerDemo
 
       private void RemoveAutomationTextBox(bool update)
       {
-         if (_automationTextBox == null)
+         if (_automationTextBox == null || !_canRemoveAutomationTextBox)
             return;
 
+         _canRemoveAutomationTextBox = false;
          _automationTextBox.Remove(update);
          _automationTextBox.Dispose();
          _automationTextBox = null;
+         _canRemoveAutomationTextBox = true;
 
          var automation = _documentViewer.Annotations.Automation;
          if (automation.CurrentEditObject != null)

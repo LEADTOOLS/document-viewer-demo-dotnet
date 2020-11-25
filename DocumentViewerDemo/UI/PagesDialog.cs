@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -81,17 +81,19 @@ namespace DocumentViewerDemo.UI
                _pagesLabel.Visible = false;
                _lastPageCheckBox.Visible = true;
                _firstPageNumberNumericUpDown.Maximum = Int32.MaxValue;
+               _lastPageNumberNumericUpDown.Maximum = Int32.MaxValue;
                _currentPageNumberLabel.Visible = false;
 
                _firstPageNumberNumericUpDown.Value = this.FirstPageNumber;
 
+               bool toLastPage = this.LastPageNumber == -1;
                if (this.LastPageNumber == -1)
                   _lastPageNumberNumericUpDown.Value = this.FirstPageNumber;
                else
                   _lastPageNumberNumericUpDown.Value = this.LastPageNumber;
 
-               _lastPageCheckBox.Checked = (this.LastPageNumber == -1);
-               _allPagesCheckBox.Checked = (this.FirstPageNumber == 1 && this.LastPageNumber == -1);
+               _lastPageCheckBox.Checked = toLastPage;
+               _allPagesCheckBox.Checked = (this.FirstPageNumber == 1 && toLastPage);
             }
          }
 

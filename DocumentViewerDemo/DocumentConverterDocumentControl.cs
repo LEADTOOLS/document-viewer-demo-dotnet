@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -165,7 +165,7 @@ namespace Leadtools.Demos
          else
             _outputFormatComboBox.SelectedIndex = 1;
 
-         if (_inputDocument == null || _inputDocument.Uri != null)
+         if (_inputDocument == null || _inputDocument.Uri != null || _inputDocument.GetDocumentFileName() != null || _inputDocument.GetDocumentStream() != null)
          {
             _outputDocumentFileTextBox.Text = _preferences.OutputDocumentFileName;
             _outputAnnotationsModeComboBox.SelectedIndex = (int)_preferences.OutputAnnotationsMode;
@@ -440,8 +440,7 @@ namespace Leadtools.Demos
       private void _documentFormatSelector_SelectedFormatChanged(object sender, EventArgs e)
       {
          // Change the output file extension when the document format is changed
-         // ???
-         // also disable annotations on LTD!
+         // Also disable annotations on LTD!
          UpdateOutputDocumentExtension();
       }
 

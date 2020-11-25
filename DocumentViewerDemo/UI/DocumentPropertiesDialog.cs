@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -79,7 +79,7 @@ namespace DocumentViewerDemo.UI
             var page = document.Pages[0];
             var pageSize = page.Size;
             var sizeInchdes = LeadSizeD.Create(pageSize.Width / LEADDocument.UnitsPerInch, pageSize.Height / LEADDocument.UnitsPerInch);
-            var sizePixels = document.SizeToPixels(pageSize);
+            var sizePixels = page.SizeToPixels(pageSize);
             _documentListView.Items.Add(new ListViewItem(new string[] { "Page size", string.Format("{0} x {1} in ({2} x {3} px)", sizeInchdes.Width, sizeInchdes.Height, sizePixels.Width, sizePixels.Height) }));
          }
 

@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -25,7 +25,6 @@ using Leadtools.Document.Writer;
 using Leadtools.Drawing;
 using Leadtools.Annotations.Engine;
 using Leadtools.Annotations.Rendering;
-using System.Text.RegularExpressions;
 using System.Drawing.Drawing2D;
 
 namespace DocumentViewerDemo
@@ -47,6 +46,14 @@ namespace DocumentViewerDemo
       // The document viewer
       private DocumentViewer _documentViewer;
 
+      // Callbacks to when we are changing the current document in the viewer
+      public class ViewerDocumentChangedCallback
+      {
+         public Func<DocumentViewer, LEADDocument, LEADDocument, bool> Changing;
+         public Action<DocumentViewer, LEADDocument> Changed;
+         public Action Aborted;
+      }
+
       // UI Command binder
       private CommandsBinder _commandsBinder;
 
@@ -66,6 +73,9 @@ namespace DocumentViewerDemo
 
       private int _loadDocumentTimeoutMilliseconds = 0;
       private int _maximumImagePixelSize = 12288;
+      private bool _useSvgBackImage = false;
+
+      private UI.OutputWindow _outputWindow;
 
       public MainForm()
       {
@@ -126,6 +136,13 @@ namespace DocumentViewerDemo
 
       private void InitDemo()
       {
+         _outputWindow = new UI.OutputWindow();
+         _outputWindow.BorderStyle = BorderStyle.None;
+         _outputWindow.Dock = DockStyle.Fill;
+         _outputWindow.Font = new Font("Consolas", 8);
+         _outputWindow.ReadOnly = true;
+         this._bottomPanel.Controls.Add(_outputWindow);
+
          // Load the preferences
          _preferences = Preferences.Load();
 
@@ -145,6 +162,10 @@ namespace DocumentViewerDemo
          InitDocumentViewer();
          InitAutomation();
 
+         // Use document history, keep last 10 document
+         _historyMaxItems = 10;
+         InitHistory();
+
          _commandsBinder = new CommandsBinder(_documentViewer);
 
          BindFileItems();
@@ -153,6 +174,8 @@ namespace DocumentViewerDemo
          BindPageItems();
          BindInteractiveItems();
          BindAnnotationsItems();
+         BindAttachmentItems();
+         BindHistoryItems();
 
          _commandsBinder.BindActions(true);
 
@@ -184,9 +207,18 @@ namespace DocumentViewerDemo
          {
             BeginInvoke((MethodInvoker)delegate
             {
-              var message = string.Format("Do you want to re-load the last document?{0}{0}{1}", Environment.NewLine, defaultDocumentFileName);
-              if (Messager.ShowQuestion(this, message, MessageBoxButtons.YesNo) == DialogResult.Yes)
-                 LoadDocumentFromFile(defaultDocumentFileName, defaultFirstPageNumber, defaultLastPageNumber, defaultAnnotationsFileName, _preferences.LastFileLoadEmbeddedAnnotations);
+               var message = string.Format("Do you want to re-load the last document?{0}{0}{1}", Environment.NewLine, defaultDocumentFileName);
+               if (Messager.ShowQuestion(this, message, MessageBoxButtons.YesNo) == DialogResult.Yes)
+               {
+                  var options = new LoadDocumentOptions();
+                  options.FirstPageNumber = defaultFirstPageNumber;
+                  options.LastPageNumber = defaultLastPageNumber;
+                  options.AnnotationsUri = !string.IsNullOrEmpty(defaultAnnotationsFileName) ? new Uri(defaultAnnotationsFileName) : null;
+                  options.LoadEmbeddedAnnotations = _preferences.LastFileLoadEmbeddedAnnotations;
+                  options.LoadAttachmentsMode = _preferences.LastLoadAttachmentsMode;
+                  options.RenderAnnotations = _preferences.LastRenderAnnotations;
+                  LoadDocumentFromFile(defaultDocumentFileName, options);
+               }
             });
          }
 
@@ -199,13 +231,20 @@ namespace DocumentViewerDemo
       {
          if (_automationManagerHelper != null)
             _automationManagerHelper.Dispose();
+
+         AttachmentsCleanup();
+         RemoveHistoryItems(0, -1);
       }
 
       private void InitOcrEngine()
       {
          try
          {
+#if LEADTOOLS_V21_OR_LATER
+            _ocrEngine = OcrEngineManager.CreateEngine(OcrEngineType.LEAD);
+#else
             _ocrEngine = OcrEngineManager.CreateEngine(OcrEngineType.LEAD, false);
+#endif // #if LEADTOOLS_V21_OR_LATER
 
             // A child directory?
             var enginePath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), @"LEADTOOLS\OcrLEADRuntime");
@@ -218,7 +257,7 @@ namespace DocumentViewerDemo
 #if LT_CLICKONCE
             _ocrEngine.Startup( null, null, null, Application.StartupPath + @"\OCR Engine" );
 #else
-            _ocrEngine.Startup(null, null, null, enginePath);
+            _ocrEngine.Startup(null, null, null, null);
 #endif // #if LT_CLICKONCE
 
          }
@@ -232,6 +271,8 @@ namespace DocumentViewerDemo
       private void InitCache()
       {
          // This demo does not require cache, however, using cache will speed up loading of resources from a document with a large number of pages
+         // Some functionality such as opening attachment and navigating between them requires a cache as well
+
          // Setup the cache directory
          var cacheDir = _preferences.CacheDir;
          if (!Directory.Exists(cacheDir))
@@ -290,6 +331,7 @@ namespace DocumentViewerDemo
          _documentViewer.UserName = Environment.UserName;
          // We prefer SVG viewing (if supported)
          _documentViewer.View.PreferredItemType = DocumentViewerItemType.Svg;
+         _useSvgBackImage = _documentViewer.View.UseSvgBackImage;
 
          var imageViewer = _documentViewer.View.ImageViewer;
          imageViewer.BackColor = SystemColors.AppWorkspace;
@@ -337,7 +379,20 @@ namespace DocumentViewerDemo
             if (!_centerPanel.Visible)
                _centerPanel.Visible = true;
 
-            if (_documentViewer.Document.IsStructureSupported)
+            LEADDocument document = _documentViewer.Document;
+
+            if (_documentViewer.Thumbnails != null)
+            {
+               if (!_leftTabControl.TabPages.Contains(_thumbnailsTabPage))
+                  _leftTabControl.TabPages.Add(_thumbnailsTabPage);
+            }
+            else
+            {
+               if (_leftTabControl.TabPages.Contains(_thumbnailsTabPage))
+                  _leftTabControl.TabPages.Remove(_thumbnailsTabPage);
+            }
+
+            if (document.IsStructureSupported)
             {
                if (!_leftTabControl.TabPages.Contains(_bookmarksTabPage))
                   _leftTabControl.TabPages.Add(_bookmarksTabPage);
@@ -348,7 +403,23 @@ namespace DocumentViewerDemo
                   _leftTabControl.TabPages.Remove(_bookmarksTabPage);
             }
 
-            if (!_documentViewer.Document.IsReadOnly)
+            if (_documentViewer.Document.Attachments.Count > 0)
+            {
+               if (!_leftTabControl.TabPages.Contains(_attachmentsTabPage))
+                  _leftTabControl.TabPages.Add(_attachmentsTabPage);
+            }
+            else
+            {
+               if (_leftTabControl.TabPages.Contains(_attachmentsTabPage))
+                  _leftTabControl.TabPages.Remove(_attachmentsTabPage);
+            }
+
+            if (_documentViewer.Document.Pages.Count == 0 && _documentViewer.Document.Attachments.Count > 0)
+               _leftTabControl.SelectedTab = _attachmentsTabPage;
+            else
+               _leftTabControl.SelectedTab = _thumbnailsTabPage;
+
+            if (!document.IsReadOnly)
                _loadingThumbnailsProgressBar.Visible = false;
 
             UpdateAnnotationsControlsVisiblity();
@@ -368,10 +439,14 @@ namespace DocumentViewerDemo
          _commandsBinder.Run();
       }
 
-      private void LoadDocumentFromFile(string documentFileName, int firstPageNumber, int lastPageNumber, string annotationsFileName, bool loadEmbeddedAnnotations)
+      private static string GetFileNameFromUri(Uri uri)
+      {
+         return uri != null && uri.IsFile ? Path.GetFullPath(uri.LocalPath) : null;
+      }
+
+      private void LoadDocumentFromFile(string documentFileName, LoadDocumentOptions options)
       {
          // This could take some time, so run it as a busy operation
-
          new BusyOperation<LEADDocument>("Load document from file")
          {
             Begin = () =>
@@ -379,22 +454,26 @@ namespace DocumentViewerDemo
                this.BeginBusyOperation();
 
                string pagesMessage;
-               if ((firstPageNumber == 0 && lastPageNumber == 0) || (firstPageNumber == 1 && lastPageNumber == -1))
+               if ((options.FirstPageNumber == 0 && options.LastPageNumber == 0) || (options.FirstPageNumber == 1 && options.LastPageNumber == -1))
                {
                   pagesMessage = string.Empty;
                }
                else
                {
-                  if (lastPageNumber == 0 || lastPageNumber == -1)
-                     pagesMessage = string.Format("{0}From page {1} to last page", Environment.NewLine, firstPageNumber);
+                  if (options.LastPageNumber == 0 || options.LastPageNumber == -1)
+                     pagesMessage = string.Format("{0}From page {1} to last page", Environment.NewLine, options.FirstPageNumber);
                   else
-                     pagesMessage = string.Format("{0}From page {1} to {2}", Environment.NewLine, firstPageNumber, lastPageNumber);
+                     pagesMessage = string.Format("{0}From page {1} to {2}", Environment.NewLine, options.FirstPageNumber, options.LastPageNumber);
                }
+
+               string annotationsFileName = GetFileNameFromUri(options.AnnotationsUri);
 
                string annotationsMessage;
                if (annotationsFileName != null)
                   annotationsMessage = string.Format("{0}With annotations from {1}", Environment.NewLine, annotationsFileName);
-               else if (loadEmbeddedAnnotations)
+               else if (options.RenderAnnotations)
+                  annotationsMessage = string.Format("{0}With embedded annotations rendered if exist", Environment.NewLine);
+               else if (options.LoadEmbeddedAnnotations)
                   annotationsMessage = string.Format("{0}With embedded annotations if exist", Environment.NewLine);
                else
                   annotationsMessage = string.Format("{0}With no annotations", Environment.NewLine);
@@ -406,20 +485,10 @@ namespace DocumentViewerDemo
             InThread = () =>
             {
                // Setup the document load options
-               var options = new LoadDocumentOptions();
                options.Cache = _cache;
                options.UseCache = _cache != null;
                options.TimeoutMilliseconds = _loadDocumentTimeoutMilliseconds;
                options.MaximumImagePixelSize = _maximumImagePixelSize;
-
-               if (annotationsFileName != null)
-                  options.AnnotationsUri = new Uri(annotationsFileName);
-               else
-                  options.AnnotationsUri = null;
-
-               options.LoadEmbeddedAnnotations = loadEmbeddedAnnotations;
-               options.FirstPageNumber = firstPageNumber;
-               options.LastPageNumber = lastPageNumber;
                return DocumentFactory.LoadFromFile(documentFileName, options);
             },
 
@@ -434,12 +503,16 @@ namespace DocumentViewerDemo
                      // Auto-delete from cache when its disposed
                      document.AutoDeleteFromCache = true;
                      SetDocument(document);
+
                      // On success, set it as the last document file we opened
+                     string annotationsFileName = GetFileNameFromUri(options.AnnotationsUri);
                      _preferences.LastDocumentFileName = documentFileName;
-                     _preferences.LastDocumentFirstPageNumber = firstPageNumber;
-                     _preferences.LastDocumentLastPageNumber = lastPageNumber;
+                     _preferences.LastDocumentFirstPageNumber = options.FirstPageNumber;
+                     _preferences.LastDocumentLastPageNumber = options.LastPageNumber;
                      _preferences.LastAnnotationsFileName = annotationsFileName;
-                     _preferences.LastFileLoadEmbeddedAnnotations = loadEmbeddedAnnotations;
+                     _preferences.LastFileLoadEmbeddedAnnotations = options.LoadEmbeddedAnnotations;
+                     _preferences.LastLoadAttachmentsMode = options.LoadAttachmentsMode;
+                     _preferences.LastRenderAnnotations = options.RenderAnnotations;
                   }
                   else
                   {
@@ -460,12 +533,89 @@ namespace DocumentViewerDemo
          .Run(this);
       }
 
-      public bool LoadDocumentFromUri(UI.OpenDocumentUrlDialog dialog, Uri documentUri, int firstPageNumber, int lastPageNumber, Uri annotationsUri, bool loadEmbeddedAnnotations)
+      private void LoadDocumentFromAttachment(LEADDocument currentDocument, LoadAttachmentOptions options)
+      {
+         // This could take some time, so run it as a busy operation
+         new BusyOperation<LEADDocument>("Load document from attachment")
+         {
+            Begin = () =>
+            {
+               this.BeginBusyOperation();
+
+               var loadDocumentOptions = options.LoadDocumentOptions;
+               string pagesMessage;
+               if ((loadDocumentOptions.FirstPageNumber == 0 && loadDocumentOptions.LastPageNumber == 0) || (loadDocumentOptions.FirstPageNumber == 1 && loadDocumentOptions.LastPageNumber == -1))
+               {
+                  pagesMessage = string.Empty;
+               }
+               else
+               {
+                  if (loadDocumentOptions.LastPageNumber == 0 || loadDocumentOptions.LastPageNumber == -1)
+                     pagesMessage = string.Format("{0}From page {1} to last page", Environment.NewLine, loadDocumentOptions.FirstPageNumber);
+                  else
+                     pagesMessage = string.Format("{0}From page {1} to {2}", Environment.NewLine, loadDocumentOptions.FirstPageNumber, loadDocumentOptions.LastPageNumber);
+               }
+
+               string annotationsFileName = GetFileNameFromUri(loadDocumentOptions.AnnotationsUri);
+
+               string annotationsMessage;
+               if (annotationsFileName != null)
+                  annotationsMessage = string.Format("{0}With annotations from {1}", Environment.NewLine, annotationsFileName);
+               else if (loadDocumentOptions.RenderAnnotations)
+                  annotationsMessage = string.Format("{0}With embedded annotations rendered if exist", Environment.NewLine);
+               else if (loadDocumentOptions.LoadEmbeddedAnnotations)
+                  annotationsMessage = string.Format("{0}With embedded annotations if exist", Environment.NewLine);
+               else
+                  annotationsMessage = string.Format("{0}With no annotations", Environment.NewLine);
+
+               string message = string.Format("Loading document from stream{0}{1}", pagesMessage, annotationsMessage);
+               ShowBusyDialog(false, message);
+            },
+
+            InThread = () =>
+            {
+               // Setup the document load options
+               options.LoadDocumentOptions.Cache = _cache;
+               options.LoadDocumentOptions.UseCache = _cache != null;
+               options.LoadDocumentOptions.TimeoutMilliseconds = _loadDocumentTimeoutMilliseconds;
+               options.LoadDocumentOptions.MaximumImagePixelSize = _maximumImagePixelSize;
+               LEADDocument document = currentDocument.LoadDocumentAttachment(options);
+               return document;
+            },
+
+            End = this.EndBusyOperation,
+
+            ThenInvoke = (LEADDocument document) =>
+            {
+               try
+               {
+                  if (document != null)
+                  {
+                     SetDocument(document);
+                  }
+                  else
+                  {
+                     UI.Helper.ShowError(this, "Loading document timed-out");
+                  }
+               }
+               catch (Exception ex)
+               {
+                  UI.Helper.ShowError(this, ex);
+               }
+            },
+
+            Error = (Exception ex) =>
+            {
+               UI.Helper.ShowError(this, ex);
+            }
+         }
+         .Run(this);
+      }
+
+      public bool LoadDocumentFromUri(UI.OpenDocumentUrlDialog dialog, Uri documentUri, LoadDocumentAsyncOptions options)
       {
          try
          {
-            var options = new LoadDocumentAsyncOptions();
-
             // Setup the progress and completed event
             EventHandler<LoadAsyncProgressEventArgs> progress = null;
             EventHandler<LoadAsyncCompletedEventArgs> completed = null;
@@ -481,6 +631,7 @@ namespace DocumentViewerDemo
             {
                // Remove our events
                var thisOptions = sender as LoadDocumentAsyncOptions;
+
                thisOptions.Progress -= progress;
                thisOptions.Completed -= completed;
 
@@ -490,6 +641,7 @@ namespace DocumentViewerDemo
                      UI.Helper.ShowError(this, e.Error);
 
                   dialog.Finish(false);
+
                   return;
                }
 
@@ -499,8 +651,8 @@ namespace DocumentViewerDemo
                if (document != null)
                {
                   // We have a document, set it
-                  // Auto-delete from cache when its disposed
-                  document.AutoDeleteFromCache = true;
+                  // Auto-delete from cache when its disposed if we do not have history
+                  document.AutoDeleteFromCache = !HasHistory;
                   SetDocument(document);
                }
                else
@@ -512,20 +664,18 @@ namespace DocumentViewerDemo
             options.Progress += progress;
             options.Completed += completed;
 
-            options.FirstPageNumber = firstPageNumber;
-            options.LastPageNumber = lastPageNumber;
-            options.LoadEmbeddedAnnotations = loadEmbeddedAnnotations;
-            options.AnnotationsUri = annotationsUri;
             options.Cache = _cache;
             options.UseCache = _cache != null;
             options.TimeoutMilliseconds = _loadDocumentTimeoutMilliseconds;
             options.MaximumImagePixelSize = _maximumImagePixelSize;
             DocumentFactory.LoadFromUriAsync(documentUri, options);
             _preferences.LastDocumentUri = documentUri.ToString();
-            _preferences.LastDocumentUriFirstPageNumber = firstPageNumber;
-            _preferences.LastDocumentUriLastPageNumber = lastPageNumber;
-            _preferences.LastAnnotationsUri = annotationsUri != null ? annotationsUri.ToString() : null;
-            _preferences.LastUriLoadEmbeddedAnnotations = loadEmbeddedAnnotations;
+            _preferences.LastDocumentUriFirstPageNumber = options.FirstPageNumber;
+            _preferences.LastDocumentUriLastPageNumber = options.LastPageNumber;
+            _preferences.LastAnnotationsUri = options.AnnotationsUri != null ? options.AnnotationsUri.ToString() : null;
+            _preferences.LastUriLoadEmbeddedAnnotations = options.LoadEmbeddedAnnotations;
+            _preferences.LastLoadAttachmentsMode = options.LoadAttachmentsMode;
+            _preferences.LastRenderAnnotations = options.RenderAnnotations;
 
             return true;
          }
@@ -564,25 +714,35 @@ namespace DocumentViewerDemo
 
             ThenInvoke = (LEADDocument document) =>
             {
-               if (document == null)
-               {
-                  UI.Helper.ShowError(this, string.Format("Document with ID '{0}' was not found in the cache or has been expired", documentId));
-                  return;
-               }
-
                try
                {
+                  if (document == null)
+                  {
+                     UI.Helper.ShowError(this, string.Format("Document with ID '{0}' was not found in the cache or has been expired", documentId));
+
+                     if (_documentChangedCallback != null && _documentChangedCallback.Aborted != null)
+                        _documentChangedCallback.Aborted();
+
+                     return;
+                  }
+
                   SetDocument(document);
                }
                catch (Exception ex)
                {
                   UI.Helper.ShowError(this, ex);
+
+                  if (_documentChangedCallback != null && _documentChangedCallback.Aborted != null)
+                     _documentChangedCallback.Aborted();
                }
             },
 
             Error = (Exception ex) =>
             {
                UI.Helper.ShowError(this, ex);
+
+               if (_documentChangedCallback != null && _documentChangedCallback.Aborted != null)
+                  _documentChangedCallback.Aborted();
             }
          }
          .Run(this);
@@ -593,10 +753,6 @@ namespace DocumentViewerDemo
          try
          {
             var document = _documentViewer.Document;
-
-            // Since we are saving the document manually to the cache, update these values:
-            document.AutoSaveToCache = false;
-            document.AutoDeleteFromCache = false;
 
             // If any of the annotation containers have been modified, save it into the document so the converter gets the latest version
             var annotations = _documentViewer.Annotations;
@@ -645,7 +801,11 @@ namespace DocumentViewerDemo
 
       private void SaveDocumentToCache(LEADDocument document, bool showInfoDialog)
       {
+         // Since we are saving the document manually to the cache, update these values:
+         document.AutoSaveToCache = false;
+         document.AutoDeleteFromCache = false;
          document.SaveToCache();
+         HistoryDocumentSavedToCache(document);
 
          if (showInfoDialog)
          {
@@ -657,6 +817,14 @@ namespace DocumentViewerDemo
                dlg.ShowDialog(this);
             }
          }
+      }
+
+      private bool IsDocumentInCache(LEADDocument document)
+      {
+         return
+            document != null &&
+            _cache != null &&
+            DocumentFactory.IsDocumentInCache(_cache, document.DocumentId);
       }
 
       private void SetDocument(LEADDocument document)
@@ -679,19 +847,60 @@ namespace DocumentViewerDemo
 
       private void FinishSetDocument(LEADDocument document)
       {
+         LEADDocument currentDocument = _documentViewer.Document;
+
+         bool autoDisposeDocumentState = _documentViewer.AutoDisposeDocument;
+         bool autoDisposeDocument = autoDisposeDocumentState;
+
+         // Inform whoever is listening that we are about to set a new document in the viewer
+         // This includes history
+         if (_documentChangedCallback != null && _documentChangedCallback.Changing != null)
+            autoDisposeDocument = _documentChangedCallback.Changing(_documentViewer, currentDocument, document);
+
          // If we have an OCR engine, use it
-         document.Text.OcrEngine = _ocrEngine;
-         document.Text.ImagesRecognitionMode = _imagesRecognitionMode;
-         document.Text.TextExtractionMode = _textExtractionMode;
+         if (document != null)
+         {
+            document.Text.OcrEngine = _ocrEngine;
+            document.Text.ImagesRecognitionMode = _imagesRecognitionMode;
+            document.Text.TextExtractionMode = _textExtractionMode;
+         }
+
+         if (_documentViewer.View != null)
+            _documentViewer.View.UseSvgBackImage = _useSvgBackImage;
+
+         // If the existing document is in the history then do not dispose it, the navigation clean up will take care of it
+         if (autoDisposeDocumentState != autoDisposeDocument)
+         {
+            _documentViewer.AutoDisposeDocument = autoDisposeDocument;
+         }
 
          // Set it in the document viewer
-         _documentViewer.SetDocument(document);
+         try
+         {
+            _documentViewer.SetDocument(document);
+         }
+         finally
+         {
+            _documentViewer.AutoDisposeDocument = autoDisposeDocumentState;
+         }
 
-         // Show the document name in the caption
-         this.Text = string.Format("{0} - {1}", GetDocumentPath(_documentViewer.Document), Messager.Caption);
+         PopulateAttachments();
+
+         if (document != null)
+         {
+            // Show the document name in the caption
+            this.Text = string.Format("{0} - {1}", GetDocumentPath(_documentViewer.Document), Messager.Caption);
+         }
+         else
+         {
+            this.Text = Messager.Caption;
+         }
 
          // Update the UI
          UpdateDocumentSetUIState();
+
+         if (_documentChangedCallback != null && _documentChangedCallback.Changed != null)
+            _documentChangedCallback.Changed(_documentViewer, document);
       }
 
       private static string GetDocumentPath(LEADDocument document)
@@ -708,7 +917,7 @@ namespace DocumentViewerDemo
          }
          else
          {
-            documentPath = "[[Virtual]]";
+            documentPath = document.Name;
          }
 
          return documentPath;
@@ -719,11 +928,7 @@ namespace DocumentViewerDemo
          if (_documentViewer.Document == null)
             return;
 
-         _documentViewer.SetDocument(null);
-
-         this.Text = Messager.Caption;
-
-         UpdateDocumentSetUIState();
+         this.FinishSetDocument(null);
       }
 
       private void DecryptDocument(LEADDocument document)
@@ -1334,7 +1539,7 @@ namespace DocumentViewerDemo
          }
       }
 
-      private static readonly Regex _emailRegex = new Regex(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+      private static readonly System.Text.RegularExpressions.Regex _emailRegex = new System.Text.RegularExpressions.Regex(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 
       private void RunValueLink(string linkValue)
       {
@@ -1480,7 +1685,7 @@ namespace DocumentViewerDemo
          var page = document.Pages[pageNumber - 1];
 
          // Get page size in pixels
-         var pixelSize = document.SizeToPixels(page.Size);
+         var pixelSize = page.SizeToPixels(page.Size);
          // Convert to DPI
          var size = LeadSizeD.Create(pixelSize.Width * 96.0 / page.Resolution, pixelSize.Height * 96.0 / page.Resolution).ToLeadSize();
          // Fit in the margin bounds

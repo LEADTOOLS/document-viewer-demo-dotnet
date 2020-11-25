@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -25,8 +25,10 @@ namespace DocumentViewerDemo.UI
       public string DocumentUrl { get; set; }
       public string AnnotationsUrl { get; set; }
       public bool LoadEmbeddedAnnotations { get; set; }
+      public bool RenderAnnotations { get; set; }
       public int FirstPageNumber { get; set; }
       public int LastPageNumber { get; set; }
+      public DocumentLoadAttachmentsMode LoadAttachmentsMode { get; set; }
 
       private int _firstPageNumber;
       private int _lastPageNumber;
@@ -40,6 +42,8 @@ namespace DocumentViewerDemo.UI
 
             if (this.AnnotationsUrl != null)
                _externalAnnotationsRadioButton.Checked = true;
+            else if (this.RenderAnnotations)
+               _renderAnnotationsRadioButton.Checked = true;
             else if (this.LoadEmbeddedAnnotations)
                _embeddedAnnotationsRadioButton.Checked = true;
             else
@@ -51,6 +55,10 @@ namespace DocumentViewerDemo.UI
                _firstPageNumber = 1;
             if (_lastPageNumber == 0)
                _lastPageNumber = -1;
+
+            _attachmentsModeComboBox.Items.Add("None");
+            _attachmentsModeComboBox.Items.Add("As attachments");
+            _attachmentsModeComboBox.SelectedIndex = (int)this.LoadAttachmentsMode;
 
             UpdateUIState();
             _progressBar.Visible = false;
@@ -129,8 +137,7 @@ namespace DocumentViewerDemo.UI
       private void _loadButton_Click(object sender, EventArgs e)
       {
          Uri documentUri;
-         Uri annotationsUri;
-         bool loadEmbeddedAnnotations;
+         var options = new LoadDocumentAsyncOptions();
 
          // Get the URI
          try
@@ -139,18 +146,27 @@ namespace DocumentViewerDemo.UI
 
             if (_noAnnotationsRadioButton.Checked)
             {
-               annotationsUri = null;
-               loadEmbeddedAnnotations = false;
+               options.AnnotationsUri = null;
+               options.LoadEmbeddedAnnotations = false;
+               options.RenderAnnotations = false;
+            }
+            else if (_renderAnnotationsRadioButton.Checked)
+            {
+               options.AnnotationsUri = null;
+               options.LoadEmbeddedAnnotations = true;
+               options.RenderAnnotations = true;
             }
             else if (_embeddedAnnotationsRadioButton.Checked)
             {
-               annotationsUri = null;
-               loadEmbeddedAnnotations = true;
+               options.AnnotationsUri = null;
+               options.LoadEmbeddedAnnotations = true;
+               options.RenderAnnotations = false;
             }
             else
             {
-               annotationsUri = new Uri(_annotationsLocationTextBox.Text.Trim());
-               loadEmbeddedAnnotations = false;
+               options.AnnotationsUri = new Uri(_annotationsLocationTextBox.Text.Trim());
+               options.LoadEmbeddedAnnotations = false;
+               options.RenderAnnotations = false;
             }
          }
          catch (Exception ex)
@@ -161,11 +177,16 @@ namespace DocumentViewerDemo.UI
 
          this.FirstPageNumber = _firstPageNumber;
          this.LastPageNumber = _lastPageNumber;
+         this.LoadAttachmentsMode = (DocumentLoadAttachmentsMode)_attachmentsModeComboBox.SelectedIndex;
+
+         options.FirstPageNumber = this.FirstPageNumber;
+         options.LastPageNumber = this.LastPageNumber;
+         options.LoadAttachmentsMode = this.LoadAttachmentsMode;
 
          _isCancelPending = false;
          _isLoading = false;
          var mainForm = this.Owner as MainForm;
-         if (mainForm.LoadDocumentFromUri(this, documentUri, this.FirstPageNumber, this.LastPageNumber, annotationsUri, loadEmbeddedAnnotations))
+         if (mainForm.LoadDocumentFromUri(this, documentUri, options))
          {
             // Means the main form has started loading the document
             _isLoading = true;

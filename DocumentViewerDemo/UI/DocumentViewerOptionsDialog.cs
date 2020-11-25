@@ -1,5 +1,5 @@
 ﻿// *************************************************************
-// Copyright (c) 1991-2019 LEAD Technologies, Inc.              
+// Copyright (c) 1991-2020 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
 using System;
@@ -42,6 +42,13 @@ namespace DocumentViewerDemo.UI
          set { _maximumImagesPixelSize = value; }
       }
 
+      private bool _useSvgBackImage;
+      public bool UseSvgBackImage
+      {
+         get { return _useSvgBackImage; }
+         set { _useSvgBackImage = value; }
+      }
+
       protected override void OnLoad(EventArgs e)
       {
          if (!DesignMode)
@@ -58,6 +65,7 @@ namespace DocumentViewerDemo.UI
 
             _loadDocumentTimeoutTextBox.Text = _loadDocumentTimeoutMilliseconds.ToString();
             _maximumImagesPixelSizeTextBox.Text = _maximumImagesPixelSize.ToString();
+            _imagesUseSvgBackImagesCheckBox.Checked = UseSvgBackImage;
          }
 
          base.OnLoad(e);
@@ -122,6 +130,7 @@ namespace DocumentViewerDemo.UI
 
          this.LoadDocumentTimeoutMilliseconds = loadDocumentTimeout;
          this.MaximumImagesPixelSize = maximumImagesPixelSize;
+         this.UseSvgBackImage = _imagesUseSvgBackImagesCheckBox.Checked;
       }
    }
 }
